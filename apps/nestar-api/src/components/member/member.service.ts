@@ -123,14 +123,10 @@ export class MemberService {
 					// FACET bu MongoDB aggregate ning pipeline bosqichi (stage).
 					// U bir xil ma'lumotga bir vaqtda bir nechta amal qilish imkonini beradi.
 					$facet: {
-						list: [{ $skip: (input.page - 1) * input.limit },
-							 { $limit: input.limit },
-							lookupAuthMemberLiked(memberId),
-						],
+						list: [{ $skip: (input.page - 1) * input.limit }, { $limit: input.limit }, lookupAuthMemberLiked(memberId)],
 						metaCounter: [{ $count: 'total' }],
 					},
 				},
-			
 			])
 			.exec();
 		if (!result.length) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
